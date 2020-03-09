@@ -3,7 +3,7 @@ module.exports = {
     browser: true,
     es6: true
   },
-  extends: ["airbnb", "plugin:vue/essential", "plugin:prettier/recommended"],
+  extends: ["airbnb", "plugin:prettier/recommended"],
   globals: {
     Atomics: "readonly",
     SharedArrayBuffer: "readonly"
@@ -16,7 +16,7 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: "module"
   },
-  plugins: ["vue", "react", "import"],
+  plugins: ["react", "import"],
   overrides: [
     {
       files: ["*store.js"],

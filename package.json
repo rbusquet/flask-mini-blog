@@ -34,14 +34,10 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.14.2",
-    "eslint-plugin-vue": "^5.2.3",
     "flow-bin": "^0.102.0",
     "flow-typed": "3.0.0",
     "prettier": "^1.18.2",
     "style-loader": "^0.23.1",
-    "vue-loader": "^15.7.0",
-    "vue-style-loader": "^4.1.2",
-    "vue-template-compiler": "^2.6.10",
     "webpack": "^4.35.2",
     "webpack-cli": "^3.3.5",
     "webpack-dev-server": "^3.7.2",
@@ -57,9 +53,6 @@
     "react-dom": "^16.8.6",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
-    "vue": "^2.6.10",
-    "vue-router": "^3.0.7",
-    "vuex": "^3.1.1",
     "webpack-manifest-plugin": "2.0.4"
   }
 }

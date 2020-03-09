@@ -24,11 +24,10 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    @app.route("/<path:path>")
-    def entrypoint(path):
-        app.logger.info("path is %s", path)
+    @app.route("/")
+    def entrypoint():
         return render_template(
-            "base.html", **{"react": "react" in path, "vue": "vue" in path}
+            "base.html",
         )
 
     from . import db

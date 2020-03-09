@@ -1,15 +1,10 @@
 <!DOCTYPE html>
 <link>
-  <title>{% block title %}{% endblock %} - Flaskr</title>
-    <link href="{{ 'css' | webpack }}" />
+  <title>Flaskr</title>
   <script src="{{ 'manifest.js' | webpack }}"></script>
   <script src="{{ 'common.js' | webpack }}"></script>
 </head>
 <body>
   <div id="root"></div>
-  {% if react %}
   <script src="{{ 'main.js' | webpack }}"></script>
-  {% elif vue %}
-  <script src="{{ 'main-vue.js' | webpack }}"></script>
-  {% endif %}
 </body>

@@ -7,7 +7,6 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
     "dev": "webpack-dev-server"
   },
@@ -23,7 +22,7 @@
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-flow": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
-    "babel-cli": "^6.26.0",
+    "@babel/cli": "7.8.4",
     "babel-eslint": "^10.0.2",
     "babel-loader": "^8.0.6",
     "css-loader": "^3.0.0",
@@ -37,7 +36,7 @@
     "eslint-plugin-react": "^7.14.2",
     "eslint-plugin-vue": "^5.2.3",
     "flow-bin": "^0.102.0",
-    "flow-typed": "^2.5.2",
+    "flow-typed": "3.0.0",
     "prettier": "^1.18.2",
     "style-loader": "^0.23.1",
     "vue-loader": "^15.7.0",

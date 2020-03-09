@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, redirect, render_template, url_for
+from flask import Flask, render_template
 
 
 def create_app(test_config=None):
@@ -25,9 +25,11 @@ def create_app(test_config=None):
         pass
 
     @app.route("/<path:path>")
-    @app.route("/", defaults={"path": ""})
     def entrypoint(path):
-        return render_template("base.html")
+        app.logger.info("path is %s", path)
+        return render_template(
+            "base.html", **{"react": "react" in path, "vue": "vue" in path}
+        )
 
     from . import db
     from .services import auth, blog

@@ -1,10 +1,13 @@
 const path = require("path");
-var ManifestPlugin = require("webpack-manifest-plugin");
+const ManifestPlugin = require("webpack-manifest-plugin");
+const VueLoaderPlugin = require("vue-loader/lib/plugin");
 
 module.exports = {
   mode: "development",
   entry: {
-    main: "./frontend/src/main/index"
+    main: "./frontend/src/react/main/index",
+    "main-vue": "./frontend/src/vue/main/index.js",
+    css: "./frontend/src/vue/main/css/style.css"
   },
   output: {
     filename: "[name].bundle.js",
@@ -17,6 +20,7 @@ module.exports = {
     sockPort: 8080
   },
   plugins: [
+    new VueLoaderPlugin(),
     new ManifestPlugin({
       fileName: "../instance/webpack-manifest.json",
       writeToFileEmit: true
@@ -46,15 +50,15 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"]
+        use: ["vue-style-loader", "style-loader", "css-loader"]
+      },
+      {
+        test: /\.vue$/,
+        use: "vue-loader"
       }
     ]
   },
   resolve: {
-    modules: [
-      path.join(__dirname, "frontend", "src"),
-      path.join(__dirname, "node_modules")
-    ],
-    extensions: ["*", ".js", ".jsx"]
+    extensions: ["*", ".js", ".jsx", ".vue"]
   }
 };

@@ -7,4 +7,5 @@ def init_app(app: Flask):
         webpack_env = WebpackEnvironment(
             manifest=f, publicRoot=app.config["WEBPACK_PUBLIC_ROOT"]
         )
+
         app.jinja_env.filters["webpack"] = filter.WebpackFilter(webpack_env)

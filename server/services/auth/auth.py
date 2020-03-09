@@ -1,6 +1,6 @@
 import functools
 
-from flask import Blueprint, Response, g, jsonify, request, session
+from flask import Blueprint, g, jsonify, request, session
 
 from ..users import UserService
 

@@ -1,27 +1,35 @@
-// @flow
-import * as React from "react";
+import React from "react";
 
-type User = {
-  id: number,
-  username: string
+export type User = {
+  id?: number;
+  username: string;
 };
 
-type ContextType = [?User, (user: ?User) => void];
+interface SetUser {
+  (user: User | null): void;
+}
 
-export const UserContext = React.createContext<ContextType>([null, () => {}]);
+type ContextType = [User | null, SetUser];
+
+export const UserContext = React.createContext<ContextType>([
+  null,
+  () => {
+    return;
+  },
+]);
 
 type PropTypes = {
-  children: React.ChildrenArray<any>
+  children: React.ReactChildren | React.ReactChild;
 };
 
 export const UserProvider = ({ children }: PropTypes) => {
   const localStorageUser = JSON.parse(localStorage.getItem("user") || "null");
-  const [user, setUser] = React.useState<?User>(localStorageUser);
+  const [user, setUser] = React.useState<User | null>(localStorageUser);
 
-  const setUserInStorage = (u: ?User) => {
+  function setUserInStorage(u: User | null) {
     setUser(u);
     localStorage.setItem("user", JSON.stringify(u || null));
-  };
+  }
 
   React.useEffect(() => {
     const resetUser = () => {
@@ -32,9 +40,5 @@ export const UserProvider = ({ children }: PropTypes) => {
     return () => window.removeEventListener("storage", resetUser);
   }, [user]);
 
-  return (
-    <UserContext.Provider value={[user, setUserInStorage]}>
-      {children}
-    </UserContext.Provider>
-  );
+  return <UserContext.Provider value={[user, setUserInStorage]}>{children}</UserContext.Provider>;
 };

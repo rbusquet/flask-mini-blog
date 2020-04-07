@@ -1,16 +1,15 @@
-// @flow
-import * as React from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 
 import { UserContext } from "../common/context";
 import { getData } from "../common/helpers";
 
-export default function HeaderButtons() {
+export default function HeaderButtons(): JSX.Element {
   const [user, setUser] = React.useContext(UserContext);
-  const logout = () => {
-    getData("/auth/logout");
+  async function logout() {
+    await getData("/auth/logout");
     setUser(null);
-  };
+  }
 
   if (user) {
     return (

@@ -24,8 +24,9 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    @app.route("/")
-    def entrypoint():
+    @app.route("/", defaults={"path": ""})
+    @app.route("/<path:path>")
+    def entrypoint(path):
         return render_template(
             "base.html",
         )

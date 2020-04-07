@@ -1,17 +1,17 @@
-// @flow
 export const SET_USERNAME = "SET_USERNAME";
 export const SET_PASSWORD = "SET_PASSWORD";
 export const SET_ERROR = "SET_ERROR";
 
 export type StateType = {
-  username: string,
-  password: string,
-  error: string
+  id?: number;
+  username: string;
+  password?: string;
+  error?: string;
 };
 
 export type ActionType = {
-  type: string,
-  payload: string
+  type: string;
+  payload: string;
 };
 
 export const reducer = (state: StateType, action: ActionType) => {
@@ -30,16 +30,16 @@ export const reducer = (state: StateType, action: ActionType) => {
 export const INITIAL_STATE = {
   username: "",
   password: "",
-  error: ""
+  error: "",
 };
 
 const actionBuilder = (action: string) => (payload: string) => ({
   type: action,
-  payload
+  payload,
 });
 
 export const actions = {
   setUsername: actionBuilder(SET_USERNAME),
   setPassword: actionBuilder(SET_PASSWORD),
-  setError: actionBuilder(SET_ERROR)
+  setError: actionBuilder(SET_ERROR),
 };

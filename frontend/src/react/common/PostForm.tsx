@@ -1,5 +1,4 @@
-// @flow
-import * as React from "react";
+import React from "react";
 import { Redirect } from "react-router";
 import { reducer, setBody, setTitle, setError } from "./postReducer";
 import { postData } from "./helpers";
@@ -8,13 +7,13 @@ import history from "./history";
 import { UserContext } from "./context";
 
 export type Post = {
-  title: string,
-  body: string
+  title: string;
+  body: string;
 };
 
 type PropTypes = {
-  url: string,
-  post?: ?Post
+  url: string;
+  post?: Post | null;
 };
 
 export default function PostForm(props: PropTypes) {
@@ -23,7 +22,7 @@ export default function PostForm(props: PropTypes) {
   const [{ error, ...form }, dispatch] = React.useReducer(reducer, {
     title: "",
     body: "",
-    error: ""
+    error: "",
   });
 
   React.useEffect(() => {
@@ -32,11 +31,11 @@ export default function PostForm(props: PropTypes) {
       dispatch(setBody(post.body));
     }
   }, [post]);
-  const onSubmit = ev => {
+  const onSubmit = (ev: React.FormEvent) => {
     ev.preventDefault();
     postData(props.url, form)
       .then(() => history.push("/"))
-      .catch(ex => dispatch(setError(ex.error)));
+      .catch((ex) => dispatch(setError(ex.error)));
   };
 
   return (
@@ -47,7 +46,7 @@ export default function PostForm(props: PropTypes) {
         <label htmlFor="title">
           Title
           <input
-            onChange={ev => dispatch(setTitle(ev.target.value))}
+            onChange={(ev) => dispatch(setTitle(ev.target.value))}
             name="title"
             id="title"
             value={form.title}
@@ -56,12 +55,7 @@ export default function PostForm(props: PropTypes) {
         </label>
         <label htmlFor="body">
           Body
-          <textarea
-            onChange={ev => dispatch(setBody(ev.target.value))}
-            name="body"
-            id="body"
-            value={form.body}
-          />
+          <textarea onChange={(ev) => dispatch(setBody(ev.target.value))} name="body" id="body" value={form.body} />
         </label>
         <input type="submit" value="Save" />
       </form>
@@ -70,5 +64,5 @@ export default function PostForm(props: PropTypes) {
 }
 
 PostForm.defaultProps = {
-  post: null
+  post: null,
 };

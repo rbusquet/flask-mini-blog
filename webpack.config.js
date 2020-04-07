@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require("path");
 const ManifestPlugin = require("webpack-manifest-plugin");
 
@@ -8,49 +9,51 @@ module.exports = {
   },
   output: {
     filename: "[name].bundle.js",
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "server/static"),
     devtoolModuleFilenameTemplate: "file://[absolute-resource-path]",
-    pathinfo: false
+    pathinfo: false,
   },
   devServer: {
-    contentBase: "./dist",
-    sockPort: 8080
+    contentBase: "./static",
+    sockPort: 8080,
   },
   plugins: [
     new ManifestPlugin({
       fileName: "../instance/webpack-manifest.json",
-      writeToFileEmit: true
-    })
+      writeToFileEmit: true,
+    }),
   ],
   optimization: {
     runtimeChunk: { name: "manifest" },
     splitChunks: {
       name: "common",
-      chunks: "all"
-    }
+      chunks: "all",
+    },
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        loader: "babel-loader",
-        options: {
-          presets: [
-            "@babel/preset-env",
-            "@babel/preset-react",
-            "@babel/preset-flow"
-          ],
-          plugins: ["@babel/plugin-transform-runtime"]
-        }
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
       },
       {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"]
+        test: /\.ts(x?)$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: "ts-loader",
+          },
+        ],
       },
-    ]
+      // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
+      {
+        enforce: "pre",
+        test: /\.js$/,
+        loader: "source-map-loader",
+      },
+    ],
   },
   resolve: {
-    extensions: ["*", ".js", ".jsx"]
-  }
+    extensions: [".js", ".ts", ".tsx"],
+  },
 };

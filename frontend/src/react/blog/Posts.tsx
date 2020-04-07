@@ -1,16 +1,24 @@
-// @flow
-import * as React from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 import { getData } from "../common/helpers";
 import { UserContext } from "../common/context";
-import Title from "../common/Title";
+import useTitle from "../common/useTitle";
+
+export interface Post {
+  id: number;
+  title: string;
+  username: string;
+  created: string;
+  author_id: string;
+  body: string;
+}
 
 const usePosts = () => {
-  const [posts, setPosts] = React.useState([]);
+  const [posts, setPosts] = React.useState<Post[]>([]);
 
   React.useEffect(() => {
     const fetch = async () => {
-      const data = await getData("/blog/posts");
+      const data = await getData<Post[]>("/blog/posts");
       setPosts(data);
     };
     fetch();
@@ -19,17 +27,16 @@ const usePosts = () => {
 };
 
 const Posts = () => {
+  useTitle("Posts");
   const [user] = React.useContext(UserContext);
   const posts = usePosts();
 
-  const renderPosts = posts.map(post => (
+  const renderPosts = posts.map((post) => (
     <article className="post" key={post.id}>
       <header>
         <div>
           <h1>{post.title}</h1>
-          <div className="about">
-            {`by ${post.username} on ${post.created}`}
-          </div>
+          <div className="about">{`by ${post.username} on ${post.created}`}</div>
         </div>
         {user && Number(user.id) === Number(post.author_id) ? (
           <NavLink className="action" to={`/post/${post.id}`}>
@@ -43,7 +50,6 @@ const Posts = () => {
 
   return (
     <>
-      <Title title="Posts" />
       <header>
         <h1>Posts</h1>
         {user ? (

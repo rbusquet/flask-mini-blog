@@ -1,12 +1,11 @@
-// @flow
-import * as React from "react";
+import React from "react";
 import PostForm from "../common/PostForm";
-import Title from "../common/Title";
+import useTitle from "../common/useTitle";
 
 function Create() {
+  useTitle("NewPost");
   return (
     <>
-      <Title title="New post" />
       <header>
         <h1>New post</h1>
       </header>

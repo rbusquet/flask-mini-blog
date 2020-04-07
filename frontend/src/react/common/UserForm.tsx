@@ -1,30 +1,26 @@
-// @flow
-import * as React from "react";
+import React from "react";
 import { reducer as formReducer, actions, INITIAL_STATE } from "./formReducer";
 import { postData } from "./helpers";
-import { UserContext } from "./context";
+import { UserContext, User } from "./context";
 import history from "./history";
 
 type PropTypes = {
-  url: string,
-  buttonTxt: string,
-  setUser?: boolean
+  url: string;
+  buttonTxt: string;
+  setUser?: boolean;
 };
 
 export default function UserForm(props: PropTypes) {
   const [, setUser] = React.useContext(UserContext);
   const { buttonTxt } = props;
-  const [{ error, ...form }, dispatch] = React.useReducer(
-    formReducer,
-    INITIAL_STATE
-  );
+  const [{ error, ...form }, dispatch] = React.useReducer(formReducer, INITIAL_STATE);
 
   const onSubmit = React.useCallback(
-    ev => {
+    (ev) => {
       ev.preventDefault();
       const post = async () => {
         try {
-          const user = await postData(props.url, form);
+          const user = await postData<User, typeof form>(props.url, form);
           dispatch(actions.setError(""));
           if (props.setUser) {
             setUser(user);
@@ -36,7 +32,7 @@ export default function UserForm(props: PropTypes) {
       };
       post();
     },
-    [form]
+    [form, props.setUser, props.url, setUser],
   );
   return (
     <>
@@ -49,7 +45,7 @@ export default function UserForm(props: PropTypes) {
             id="username"
             required
             value={form.username}
-            onChange={ev => dispatch(actions.setUsername(ev.target.value))}
+            onChange={(ev) => dispatch(actions.setUsername(ev.target.value))}
           />
         </label>
 
@@ -61,7 +57,7 @@ export default function UserForm(props: PropTypes) {
             name="password"
             required
             value={form.password}
-            onChange={ev => dispatch(actions.setPassword(ev.target.value))}
+            onChange={(ev) => dispatch(actions.setPassword(ev.target.value))}
           />
         </label>
 
@@ -72,5 +68,5 @@ export default function UserForm(props: PropTypes) {
 }
 
 UserForm.defaultProps = {
-  setUser: false
+  setUser: false,
 };

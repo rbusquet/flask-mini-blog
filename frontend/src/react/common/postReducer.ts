@@ -1,14 +1,12 @@
-// @flow
-
-export type StateType = {
-  title: string,
-  body: string,
-  error: string
-};
+export interface StateType {
+  title: string;
+  body: string;
+  error: string;
+}
 
 type ActionType = {
-  type: string,
-  payload: string
+  type: string;
+  payload: string;
 };
 
 export const reducer = (state: StateType, action: ActionType) => {
@@ -26,15 +24,15 @@ export const reducer = (state: StateType, action: ActionType) => {
 
 export const setTitle = (payload: string): ActionType => ({
   type: "SET_TITLE",
-  payload
+  payload,
 });
 
 export const setBody = (payload: string): ActionType => ({
   type: "SET_BODY",
-  payload
+  payload,
 });
 
 export const setError = (payload: string): ActionType => ({
   type: "SET_ERROR",
-  payload
+  payload,
 });
